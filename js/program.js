@@ -11,16 +11,24 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
+var texture = THREE.ImageUtils.loadTexture( "textures/magic.jpg" );
 
 // Create a new box
 var geometry = new THREE.BoxGeometry( 1, 1, 1 );
 
 // Create a new material for it that is CornflowerBlue
-var material = new THREE.MeshBasicMaterial( { color : 0x659CEF } );
+var material = new THREE.MeshLambertMaterial( { map: texture } );
 
 var cube = new THREE.Mesh( geometry, material );
 
 scene.add( cube );
+
+var ambientLight = new THREE.AmbientLight(0xbbbbbb);
+scene.add(ambientLight);
+
+var directionalLight = new THREE.DirectionalLight(0xffffff);
+directionalLight.position.set(1,1,1).normalize();
+scene.add(directionalLight);
 
 camera.position.z = 5;
 
