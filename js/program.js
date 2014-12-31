@@ -9,6 +9,7 @@ var deltaTime = 0;
 
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setClearColor( new THREE.Color( 100, 149, 237 ) );
 document.body.appendChild( renderer.domElement );
 
 var texture = THREE.ImageUtils.loadTexture( "textures/magic.jpg" );
