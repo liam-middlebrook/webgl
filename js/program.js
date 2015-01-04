@@ -34,6 +34,9 @@ var directionalLight = new THREE.DirectionalLight(0xffffff);
 directionalLight.position.set(1,1,1);
 scene.add(directionalLight);
 
+var pointLight1 = new THREE.PointLight(0xffffff);
+scene.add(pointLight1);
+
 camera.position.z = 5;
 
 function render() {
@@ -57,7 +60,8 @@ var params = {
     positionZ : 0,
     rotationX : 0,
     rotationY : 0,
-    rotationZ : 0
+    rotationZ : 0,
+    color : "#ffffff"
 };
 
 var modelFolder = gui.addFolder("Model");
@@ -78,6 +82,21 @@ modelFolder.add(params, "rotationY", 0, 2 * Math.PI).onChange(function(){
 });
 modelFolder.add(params, "rotationZ", 0, 2 * Math.PI).onChange(function(){
     cabinet.rotation.z = params.rotationZ;
+});
+
+var lightFolder = gui.addFolder("Lights");
+var plight1Folder = lightFolder.addFolder("Point Light 1");
+plight1Folder.add(params, "positionX", -100, 100).onChange(function(){
+    pointLight1.position.x = params.positionX;
+});
+plight1Folder.add(params, "positionY", -100, 100).onChange(function(){
+    pointLight1.position.y = params.positionY;
+});
+plight1Folder.add(params, "positionZ", -100, 100).onChange(function(){
+    pointLight1.position.z = params.positionZ;
+});
+plight1Folder.addColor(params, "color").onChange(function(colorVal){
+    pointLight1.color.setHex(colorVal.replace('#', '0x'));
 });
 
 
