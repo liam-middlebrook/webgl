@@ -18,24 +18,20 @@ var JSONLoader = new THREE.JSONLoader();
 
 var cabinet = null;
 
-JSONLoader.load('models/cabinet.js', function( geometry ) {
-    var material = new THREE.MeshLambertMaterial({
-        map: THREE.ImageUtils.loadTexture( "textures/cabinet.png" )
-    });
-
+JSONLoader.load('models/cabinet.js', function( geometry, material ) {
     cabinet = new THREE.Mesh(
         geometry,
-        material
+        new THREE.MeshFaceMaterial(material)
     );
 
     scene.add(cabinet);
 });
 
-var ambientLight = new THREE.AmbientLight(0xbbbbbb);
+var ambientLight = new THREE.AmbientLight(0xdddddd);
 scene.add(ambientLight);
 
 var directionalLight = new THREE.DirectionalLight(0xffffff);
-directionalLight.position.set(1,1,1).normalize();
+directionalLight.position.set(1,1,1);
 scene.add(directionalLight);
 
 camera.position.z = 5;
@@ -56,18 +52,31 @@ var gui = new dat.GUI({
     height : 5 * 32 -1
 });
 var params = {
+    positionX : 0,
+    positionY : 0,
+    positionZ : 0,
     rotationX : 0,
     rotationY : 0,
     rotationZ : 0
 };
 
-gui.add(params, "rotationX", 0, 2 * Math.PI).onChange(function(){
+var modelFolder = gui.addFolder("Model");
+modelFolder.add(params, "positionX", -100, 100).onChange(function(){
+    cabinet.position.x = params.positionX;
+});
+modelFolder.add(params, "positionY", -100, 100).onChange(function(){
+    cabinet.position.y = params.positionY;
+});
+modelFolder.add(params, "positionZ", -100, 100).onChange(function(){
+    cabinet.position.z = params.positionZ;
+});
+modelFolder.add(params, "rotationX", 0, 2 * Math.PI).onChange(function(){
     cabinet.rotation.x = params.rotationX;
 });
-gui.add(params, "rotationY", 0, 2 * Math.PI).onChange(function(){
+modelFolder.add(params, "rotationY", 0, 2 * Math.PI).onChange(function(){
     cabinet.rotation.y = params.rotationY;
 });
-gui.add(params, "rotationZ", 0, 2 * Math.PI).onChange(function(){
+modelFolder.add(params, "rotationZ", 0, 2 * Math.PI).onChange(function(){
     cabinet.rotation.z = params.rotationZ;
 });
 
