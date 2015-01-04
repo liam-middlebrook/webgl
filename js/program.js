@@ -43,13 +43,33 @@ camera.position.z = 5;
 function render() {
     requestAnimationFrame( render );
 
-    cabinet.rotation.y += 1000 * deltaTime;
-    cabinet.rotation.x += 1000 * deltaTime;
-
     renderer.render( scene, camera );
 
     time = clock.getElapsedTime();
     deltaTime = clock.getDelta();
 }
+
+
+
+// DAT GUI CONFIG
+var gui = new dat.GUI({
+    height : 5 * 32 -1
+});
+var params = {
+    rotationX : 0,
+    rotationY : 0,
+    rotationZ : 0
+};
+
+gui.add(params, "rotationX", 0, 2 * Math.PI).onChange(function(){
+    cabinet.rotation.x = params.rotationX;
+});
+gui.add(params, "rotationY", 0, 2 * Math.PI).onChange(function(){
+    cabinet.rotation.y = params.rotationY;
+});
+gui.add(params, "rotationZ", 0, 2 * Math.PI).onChange(function(){
+    cabinet.rotation.z = params.rotationZ;
+});
+
 
 render();
