@@ -14,15 +14,22 @@ document.body.appendChild( renderer.domElement );
 
 var texture = THREE.ImageUtils.loadTexture( "textures/magic.jpg" );
 
-// Create a new box
-var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+var JSONLoader = new THREE.JSONLoader();
 
-// Create a new material for it that is CornflowerBlue
-var material = new THREE.MeshLambertMaterial( { map: texture } );
+var cabinet = null;
 
-var cube = new THREE.Mesh( geometry, material );
+JSONLoader.load('models/cabinet.js', function( geometry ) {
+    var material = new THREE.MeshLambertMaterial({
+        map: THREE.ImageUtils.loadTexture( "textures/cabinet.png" )
+    });
 
-scene.add( cube );
+    cabinet = new THREE.Mesh(
+        geometry,
+        material
+    );
+
+    scene.add(cabinet);
+});
 
 var ambientLight = new THREE.AmbientLight(0xbbbbbb);
 scene.add(ambientLight);
@@ -36,8 +43,8 @@ camera.position.z = 5;
 function render() {
     requestAnimationFrame( render );
 
-    cube.rotation.x += 1000.0 * deltaTime;
-    cube.rotation.y += 5000.0 * deltaTime;
+    cabinet.rotation.y += 1000 * deltaTime;
+    cabinet.rotation.x += 1000 * deltaTime;
 
     renderer.render( scene, camera );
 
