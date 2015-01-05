@@ -24,7 +24,7 @@ JSONLoader.load('models/cabinet.js', function( geometry, material ) {
         new THREE.MeshFaceMaterial(material)
     );
 
-    scene.add(cabinet);
+    console.log(scene.add(cabinet));
 });
 
 var ambientLight = new THREE.AmbientLight(0xdddddd);
@@ -74,13 +74,13 @@ modelFolder.add(params, "positionY", -100, 100).onChange(function(){
 modelFolder.add(params, "positionZ", -100, 100).onChange(function(){
     cabinet.position.z = params.positionZ;
 });
-modelFolder.add(params, "rotationX", 0, 2 * Math.PI).onChange(function(){
+modelFolder.add(params, "rotationX", -Math.PI, Math.PI).onChange(function(){
     cabinet.rotation.x = params.rotationX;
 });
-modelFolder.add(params, "rotationY", 0, 2 * Math.PI).onChange(function(){
+modelFolder.add(params, "rotationY", -Math.PI, Math.PI).onChange(function(){
     cabinet.rotation.y = params.rotationY;
 });
-modelFolder.add(params, "rotationZ", 0, 2 * Math.PI).onChange(function(){
+modelFolder.add(params, "rotationZ", -Math.PI, Math.PI).onChange(function(){
     cabinet.rotation.z = params.rotationZ;
 });
 
